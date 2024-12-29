@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Produit_panier } from '../models/produit_panier';
 import { CommonModule } from '@angular/common';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { PanierState } from '../states/panier.state';
 import { Observable } from 'rxjs';
 import { RemoveProduit, SetProduitQtt } from '../actions/panier-action';

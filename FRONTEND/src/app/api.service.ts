@@ -6,9 +6,26 @@ import { environment } from '../environments/environment';
 
 @Injectable()
 export class ApiService {
-
   constructor(private http: HttpClient) { }
   public getProduits(): Observable<Produit[]> {
-    return this.http.get<Produit[]>(environment.backendClient);
+    return this.http.get<Produit[]>(environment.backendProduct);
+  }
+
+  public register(email: string, pseudo: string, password: string): Observable<any> {
+    const body = { email, pseudo, password };
+    return this.http.post(environment.backendRegister, body);
+  }
+
+  public login(email: string, password: string): Observable<any> {
+    const body = { email, password };
+    return this.http.post(environment.backendLogin, body);
+  }
+
+  public getCurrentUser(): Observable<any> {
+    return this.http.get<any>(environment.backendUser); 
+  }
+
+  public updateUser(updatedUser: any): Observable<any> {
+    return this.http.put<any>(environment.backendUser, updatedUser);
   }
 }
