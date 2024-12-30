@@ -54,7 +54,7 @@ const loginUser = async (req, res) => {
 
     const user = users.find((user) => user.email === email);
     if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(401).json({ message: 'Invalid credentials.' });
+        return res.status(401).json({ message: 'Invalid password / login not found' });
     }
 
     const tokens = generateToken(user);
@@ -65,6 +65,8 @@ const loginUser = async (req, res) => {
 const getUser = (req, res) => {
     const { userid } = req.user;
 
+    //we could extract all the information fril the req that comes from the authenticate middleware
+    // but I prefer to get the user from the users array to verify that the user still exists
     const user = users.find((user) => user.userid === userid);
     if (!user) {
         return res.status(404).json({ message: 'User not found.' });
@@ -77,6 +79,7 @@ const getUser = (req, res) => {
 // Update user details
 const updateUser = (req, res) => {
     const { userid } = req.user;
+    //password is for now not sent in the request body
     const { email, pseudo, password } = req.body;
 
     const user = users.find((user) => user.userid === userid);

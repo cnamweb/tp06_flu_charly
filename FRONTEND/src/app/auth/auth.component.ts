@@ -28,12 +28,14 @@ export class AuthComponent implements OnInit {
         const accessToken = localStorage.getItem('accessToken');
         const refreshToken = localStorage.getItem('refreshToken');
         if (accessToken && refreshToken) {
-            this.isAuthenticated = true;
             this.apiService.getCurrentUser().subscribe(
                 (user: any) => {
+                    this.isAuthenticated = true;
                     this.store.dispatch(new UpdatePseudo(user.pseudo));
                 },
-                (error) => console.error('Error loading user info:', error)
+                (error) => {
+                    console.error('Error loading user info:', error)
+                }
             );
         }
     }

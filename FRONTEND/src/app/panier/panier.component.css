@@ -29,3 +29,32 @@ th, td {
   width: 80%;
   margin-top: 20px;
 }
+
+.wawing_text .space{
+  margin-left: 6px;
+}
+
+.wawing_text span {
+  position: relative;
+  display: inline-block;
+  color: #58d0ff;
+  font-size: 1em;
+  text-transform: uppercase;
+  animation: wawing 3s ease-in-out infinite;
+  animation-delay: calc(.1s*var(--i));
+}
+
+@keyframes wawing {
+  0% {
+      transform: translateY(0px);
+  }
+
+  20% {
+      transform: translateY(-10px);
+  }
+
+  40%,
+  100% {
+      transform: translateY(0px);
+  }
+}
