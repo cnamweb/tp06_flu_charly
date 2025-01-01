@@ -6,7 +6,7 @@ const userRoutes = require('./routes/userRoutes');
 const app = express();
 
 const corsOptions = {
-  origin: "*",
+  origin: "http://localhost:443",
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   headers: 'Content-Type, Authorization',
   exposedHeaders: 'Authorization',
