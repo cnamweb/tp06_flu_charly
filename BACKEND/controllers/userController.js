@@ -22,7 +22,7 @@ const generateToken = (user) => {
 };
 
 // Register user
-const registerUser = async (req, res) => {
+exports.registerUser = async (req, res) => {
     const { email, pseudo, password } = req.body;
 
     if (!email || !pseudo || !password) {
@@ -49,7 +49,7 @@ const registerUser = async (req, res) => {
 };
 
 // Login user
-const loginUser = async (req, res) => {
+exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     const user = users.find((user) => user.email === email);
@@ -62,7 +62,7 @@ const loginUser = async (req, res) => {
 };
 
 // Get user info
-const getUser = (req, res) => {
+exports.getUser = (req, res) => {
     const { userid } = req.user;
 
     //we could extract all the information fril the req that comes from the authenticate middleware
@@ -77,7 +77,7 @@ const getUser = (req, res) => {
 };
 
 // Update user details
-const updateUser = (req, res) => {
+exports.updateUser = (req, res) => {
     const { userid } = req.user;
     //password is for now not sent in the request body
     const { email, pseudo, password } = req.body;
@@ -93,5 +93,3 @@ const updateUser = (req, res) => {
 
     res.status(200).json({ message: 'User updated successfully.', user });
 };
-
-module.exports = { registerUser, loginUser, getUser, updateUser };

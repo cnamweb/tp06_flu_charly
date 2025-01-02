@@ -13,7 +13,6 @@ import { Store } from '@ngxs/store';
     styleUrl: './account.component.css'
 })
 export class AccountComponent implements OnInit {
-    userId = '';
     email = '';
     pseudo = '';
     isEditing = false;
@@ -29,7 +28,6 @@ export class AccountComponent implements OnInit {
         // Fetch user info (mocked or real, replace with actual API call)
         this.apiService.getCurrentUser().subscribe(
             (user: any) => {
-                this.userId = user.userId;
                 this.email = user.email;
                 this.pseudo = user.pseudo;
             },

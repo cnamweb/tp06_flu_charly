@@ -1,19 +1,15 @@
-const express = require('express');
-const { registerUser, loginUser, updateUser, getUser } = require('../controllers/userController');
-const authenticate = require('../middleware/authMiddleware');
+const {authenticate} = require('../middleware/authMiddleware');
 
-const router = express.Router();
+module.exports = app => { 
+    
+    const userController = require('../controllers/userController');
 
-// Register a new user
-router.post('/register', registerUser);
+    let router = require('express').Router();
 
-// Login user
-router.post('/login', loginUser);
+    router.post('/register', userController.registerUser);
+    router.post('/login', userController.loginUser);
+    router.get('/user', authenticate, userController.getUser);
+    router.put('/user', authenticate, userController.updateUser);
 
-// Get current user info
-router.get('/user', authenticate, getUser);
-
-// Update user data
-router.put('/user', authenticate, updateUser);
-
-module.exports = router;
+    app.use('/api/users', router);
+}

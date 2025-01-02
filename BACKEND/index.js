@@ -1,7 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const productRoutes = require('./routes/productRoutes');
-const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -16,10 +14,11 @@ const PORT = 443;
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); 
 
-app.use('/api/products', productRoutes);
-app.use('/api/users', userRoutes);
+
+require('./routes/productRoutes') (app);
+require('./routes/userRoutes') (app);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

@@ -2,10 +2,6 @@
     <h2>User Profile</h2>
     <form *ngIf="!isEditing; else editTemplate">
         <div>
-            <label>User ID:</label>
-            <input type="text" [value]="userId" disabled />
-        </div>
-        <div>
             <label>Email:</label>
             <input type="text" [value]="email" disabled />
         </div>
