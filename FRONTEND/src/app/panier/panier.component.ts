@@ -29,7 +29,7 @@ export class PanierComponent {
 
   onSetQuantity(product: Produit_panier, quantity: string) {
     const pr_panier = new Produit_panier();
-    pr_panier.product = product.product;
+    pr_panier.namepr = product.namepr;
     pr_panier.price = product.price;
     pr_panier.unit = product.unit;
     pr_panier.quantity = parseInt(quantity);

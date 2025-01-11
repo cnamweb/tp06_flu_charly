@@ -35,7 +35,7 @@ export class PanierState {
     add({ getState, patchState }: StateContext<PanierStateModel>, { payload }: AddProduit) {
         const state = getState();
         const panier = [...state.panier];
-        const existingProduit = panier.find(p => p.product === payload.product);
+        const existingProduit = panier.find(p => p.namepr === payload.namepr);
 
         if (existingProduit) {
             existingProduit.quantity += payload.quantity;
@@ -50,12 +50,12 @@ export class PanierState {
     setQuantity({ getState, patchState }: StateContext<PanierStateModel>, { payload }: SetProduitQtt) {
         const state = getState();
         const panier = [...state.panier];
-        const existingProduit = panier.find(p => p.product === payload.product);
+        const existingProduit = panier.find(p => p.namepr === payload.namepr);
 
         if (existingProduit) {
             if (payload.quantity <= 0) {
                 // Remove the product if quantity is zero or less
-                patchState({ panier: panier.filter(p => p.product !== payload.product) });
+                patchState({ panier: panier.filter(p => p.namepr !== payload.namepr) });
             } else {
                 existingProduit.quantity = payload.quantity;
                 patchState({ panier });
@@ -66,7 +66,7 @@ export class PanierState {
     @Action(RemoveProduit)
     remove({ getState, patchState }: StateContext<PanierStateModel>, { payload }: RemoveProduit) {
         const state = getState();
-        const panier = state.panier.filter(p => p.product !== payload.product);
+        const panier = state.panier.filter(p => p.namepr !== payload.namepr);
         patchState({ panier });
     }
 

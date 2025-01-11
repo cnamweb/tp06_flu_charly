@@ -14,11 +14,19 @@ const PORT = 443;
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));
 
+const db = require("./models");
 
-require('./routes/productRoutes') (app);
-require('./routes/userRoutes') (app);
+db.sequelize.sync()
+  .then(() => {
+    console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
+
+require('./routes')(app);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

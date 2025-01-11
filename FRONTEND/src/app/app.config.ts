@@ -13,7 +13,6 @@ import { routes } from './app.routes';
 export const appConfig: ApplicationConfig = {
     providers: [
         provideRouter(routes),
-        provideHttpClient(),
         ApiService,
         importProvidersFrom(NgxsModule.forRoot([PanierState, ProduitState, UserState])),
         provideHttpClient(withInterceptorsFromDi()),

@@ -1,13 +1,13 @@
 <div class="products_container">
   <div class="product" *ngFor="let item of products$ | async">
     <div class="product_wrapper">
-      <div class="product_title">{{ item.product }} </div>
+      <div class="product_title">{{ item.namepr }} </div>
     </div>
 
     <div class="product_description">{{ item.description }} </div>
     <div class="product_categories">
-      <div class="product_category" *ngFor="let category of item.categories">
-        {{ category }}
+      <div class="product_category">
+        {{ item.category }}
       </div>
     </div>
     <div class="product_wrapper">

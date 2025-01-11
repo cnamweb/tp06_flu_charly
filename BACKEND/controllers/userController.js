@@ -1,6 +1,11 @@
+const { v4: uuidv4 } = require ("uuid");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const users = require('../models/user');
+
+const db = require("../models");
+const Utilisateurs = db.utilisateurs;
+const Op = db.Sequelize.Op;
 
 const SECRET_KEY = 'HELLOHELLOHELLO';
 const ACCESS_TOKEN_EXPIRATION = '15m';
@@ -9,7 +14,6 @@ const REFRESH_TOKEN_EXPIRATION = '7d';
 // Generate JWT Tokens
 const generateToken = (user) => {
     const payload = {
-        userid: user.userid,
         email: user.email,
         pseudo: user.pseudo,
         issuedAt: Date.now(),
@@ -52,13 +56,33 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
-    const user = users.find((user) => user.email === email);
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(401).json({ message: 'Invalid password / login not found' });
-    }
+    Utilisateurs.findOne({ where: { email: email } })
+    .then(data => {
+      if (data) {
+        const user = {
+          id: data.id,
+          pseudo: data.pseudo,
+          email: data.email
+        };
+      
+        const tokens = generateToken(user);
 
-    const tokens = generateToken(user);
-    res.status(200).json({ message: 'Login successful.', tokens, pseudo: user.pseudo });
+        res.setHeader('Authorization', `Bearer ${tokens}`);
+        res.status(200).json({ message: 'Login successful.', tokens, pseudo: user.pseudo });
+      } else {
+        res.status(404).send({
+          message: `Cannot find Utilisateur with email=${email}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(400).send({
+        message: "Error retrieving Utilisateur with email=" + email
+      });
+    });
+
+
+
 };
 
 // Get user info

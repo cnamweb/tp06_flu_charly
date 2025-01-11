@@ -56,7 +56,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of panier$ | async">
-                <td>{{ item.product }}</td>
+                <td>{{ item.namepr }}</td>
                 <td>{{ item.price }} {{ item.unit }}</td>
                 <td>
                     <input type="number" min="1" max="100" [value]="item.quantity" #quantityInput />

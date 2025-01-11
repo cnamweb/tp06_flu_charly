@@ -32,7 +32,7 @@ export class ProduitState {
     static getAllCategories(state: ProduitStateModel) {
         let categories = new Set<string>();
         state.produits.forEach(product => {
-            product.categories.forEach(category => categories.add(category));
+            categories.add(product.category);
         });
         return Array.from(categories);
     }
@@ -43,10 +43,10 @@ export class ProduitState {
         let produits_filtre = state.produits;
         
         produits_filtre = produits_filtre.filter(product => {
-            if (payload.category != null && payload.category != "All" && !product.categories.includes(payload.category)) {
+            if (payload.category != null && payload.category != "All" && !product.category.toLowerCase().includes(payload.category.toLowerCase())) {
                 return false;
             }
-            if (payload.name != null && payload.name != "" && !product.product.toLowerCase().includes(payload.name.toLowerCase())) {
+            if (payload.name != null && payload.name != "" && !product.namepr.toLowerCase().includes(payload.name.toLowerCase())) {
                 return false;
             }
             return true;
